@@ -1,0 +1,3 @@
+Application: ${pom.name}
+Version: ${pom.version}
+Build: ${project.build.finalName}

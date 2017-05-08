@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EthernetResponse sender="ecl" receiver="ace" xmlns="http://www.centurylink.com/XMLSchema/ace">
+   <ResponseStatus>failure</ResponseStatus>
+   <ResponseMessage>401 Http Status Code</ResponseMessage>
+   <AdditionalInfo>
+	 <ErrorCode>AccessDenied</ErrorCode>
+   </AdditionalInfo>
+</EthernetResponse>

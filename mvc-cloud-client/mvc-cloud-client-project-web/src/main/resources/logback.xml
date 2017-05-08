@@ -1,0 +1,325 @@
+<configuration scan="true" scanPeriod="300 seconds">
+
+	<!--
+		Log Appenders
+	 -->
+
+	<!-- Console, Catalina -->
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[ALU Service Portal]  %d{ISO8601} %5p %c{1} - %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+	</appender>
+
+	<!-- Error log-->
+    <appender name="errorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${catalina.base}/alu/servicePortal/logs/error.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${catalina.base}/alu/servicePortal/logs/error.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{ISO8601} %5p - %t - %c{1}:%L - %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${catalina.base}/alu/servicePortal/logs/portal.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${catalina.base}/alu/servicePortal/logs/portal.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>50MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{ISO8601} %5p - %t - %c{1}:%L - %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+	<!-- Debug log -->
+    <appender name="debugFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${catalina.base}/alu/servicePortal/logs/debug.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${catalina.base}/alu/servicePortal/logs/debug.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>50MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{ISO8601} %5p - %t - %c{1}:%L - %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+    <!-- Accounting stats log -->
+    <appender name="accountingStatsFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${catalina.base}/alu/servicePortal/logs/accounting-stats.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${catalina.base}/alu/servicePortal/logs/accounting-stats.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{ISO8601} - %5p - %t - %c{1}:%L - %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+    <!-- Monitored object log -->
+    <appender name="monitoredObjectFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${catalina.base}/alu/servicePortal/logs/monitored-object.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${catalina.base}/alu/servicePortal/logs/monitored-object.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{ISO8601} - %5p - %t - %c{1}:%L - %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+	<!-- Alarms log -->
+	<appender name="alarmsFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${catalina.base}/alu/servicePortal/logs/alarms.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${catalina.base}/alu/servicePortal/logs/alarms.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{ISO8601} - %5p - %t - %c{1}:%L - %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+	<!-- SAM-O Comms log -->
+    <appender name="samoFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${catalina.base}/alu/servicePortal/logs/samo.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${catalina.base}/alu/servicePortal/logs/samo.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{ISO8601} [%r] - %t - %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+	<!-- SAS Comms log -->
+    <appender name="sasFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${catalina.base}/alu/servicePortal/logs/sas.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${catalina.base}/alu/servicePortal/logs/sas.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{ISO8601} - %5p - %t - %c{1}:%L - %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+    <!-- JMS Events log -->
+    <appender name="jmsFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${catalina.base}/alu/servicePortal/logs/jms.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${catalina.base}/alu/servicePortal/logs/jms.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>5</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>50MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{ISO8601} - %5p - %t - %c{1}:%L - %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+	<!-- High Impact Command Log -->
+    <appender name="userActionsFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${catalina.base}/alu/servicePortal/logs/user_actions.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${catalina.base}/alu/servicePortal/eventLogs/user_actions.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{ISO8601} - [%mdc{username}] - %mdc{remoteIP} - %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+	<!-- Debug Response log -->
+    <appender name="mefResponseLogging" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${catalina.base}/alu/servicePortal/logs/ethernetRequestResponse.log</file>
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${catalina.base}/alu/servicePortal/logs/ethernetRequestResponse.%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>50MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{ISO8601} %5p - %t - %c{1}:%L - %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+    
+	<!--
+		Loggers
+	 -->
+
+	<!-- SAM-O Calls -->
+	<logger name="com.alu.ipd.ode.products.sam.samo.agent.LoggingClientInterceptor" additivity="false" level="debug">
+		<appender-ref ref="samoFile"/>
+	</logger>
+
+	<logger name="com.alu.ipd.ode.module.sam.sas" additivity="false" level="debug">
+		<appender-ref ref="sasFile"/>
+	</logger>
+
+	<!--  Alarms -->
+	<logger name="com.alu.ipd.ode.modules.alarms" additivity="false" level="debug">
+		<appender-ref ref="alarmsFile"/>
+	</logger>
+
+	<!--  JMS -->
+	<logger name="com.alu.ipd.ode.module.sam.jms" additivity="false" level="debug">
+		<appender-ref ref="jmsFile"/>
+	</logger>
+
+	<!-- High-Impact Logging -->
+	<logger name="aoplogging" level="trace">
+		<appender-ref ref="userActionsFile" />
+	</logger>
+
+	<!-- Accounting Stats Classes -->
+	<logger name="com.alu.ipd.ode.modules.accountingstats" additivity="false" level="debug">
+		<appender-ref ref="accountingStatsFile"/>
+	</logger>
+
+	<!-- Monitored Object Classes -->
+	<logger name="com.alu.ipd.ode.modules.monitoredobject" additivity="false" level="debug">
+		<appender-ref ref="monitoredObjectFile"/>
+	</logger>
+	<logger name="mefResponseLogging" additivity="false" level="debug">
+		<appender-ref ref="mefResponseLogging"/>
+	</logger>
+
+
+
+
+	<!-- ALU Classes -->
+
+	<!-- James Ji on Feb 8, 2012 -->
+
+	<!-- Each logger must have a unique name, otherwise, it will be override. -->
+
+	<!--
+	In this scenario, it means any java classes in com.alu.ipd.ode package or its subpackages,
+	what it try to log must >= debug level, a log event will be triggered and assigned to these 3 appenders.
+	In each appender, after received this event, if event's level >= its own level settings, then write to the log file.
+
+	For example, in com.alu.ipd.ode.ABC class, I have source code like this,
+
+	log.debug("A good day!");
+
+	it is debug level, a log event will be sent to debugFile/errorFile/file appenders,
+	debugFile is debug level too, it will accept this event, and write to debug.log.
+	errorFile is error level, it will NOT accept this event, and won't write to error.log.
+	file is info level, it will NOT accept this event, and won't write to portal.log.
+
+	Below is what you can see on console, and it explained the behavior.
+	-->
+
+<!-- 08:54:32,533 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [com.alu.ipd.ode] to DEBUG -->
+<!-- 08:54:32,533 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [debugFile] to Logger[com.alu.ipd.ode] -->
+<!-- 08:54:32,533 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [errorFile] to Logger[com.alu.ipd.ode] -->
+<!-- 08:54:32,533 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [file] to Logger[com.alu.ipd.ode] -->
+
+	<logger name="com.alu.ipd.ode" level="debug">
+		<appender-ref ref="debugFile"/>
+ 		<appender-ref ref="errorFile"/>
+ 		<appender-ref ref="file"/>
+	</logger>
+	
+	
+
+	<!-- Global Classes -->
+	<root level="warn">
+		<!-- James Ji on Feb 8, 2012 -->
+		<!-- To developer, in your local environment, if you want see more logs on console, comment it out. -->
+		<!-- But don't check in the modification. Otherwise, on production, the catalina.out file may grow up crazy. -->
+		<appender-ref ref="stdout"/>
+		<appender-ref ref="file"/>
+	</root>
+
+</configuration>
